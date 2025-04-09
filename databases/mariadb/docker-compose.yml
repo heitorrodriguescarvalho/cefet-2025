@@ -1,0 +1,17 @@
+services:
+  service-mariadb:
+    image: bitnami/mariadb:latest
+    container_name: mariadb
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_DATABASE=agenda
+      - MARIADB_USER=docker
+      - MARIADB_PASSWORD=docker
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/bitnami/mariadb
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:

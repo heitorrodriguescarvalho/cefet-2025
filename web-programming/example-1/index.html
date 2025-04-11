@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Formulário</title>
+  </head>
+  <body>
+    <form name="review-form">
+      <fieldset>
+        <legend>Dados Pessoais</legend>
+
+        <label id="label-name" for="input-name">Nome:</label>
+        <input
+          type="text"
+          name="input-name"
+          id="input-name"
+          size="150"
+          maxlength="140"
+        />
+        <br />
+
+        <label id="label-address" for="input-address">Endereço:</label>
+        <input
+          type="text"
+          autocomplete="street-address"
+          name="input-address"
+          id="input-address"
+          size="150"
+          maxlength="140"
+        />
+        <br />
+
+        <label id="label-age" for="input-age">Idade:</label>
+        <input
+          type="number"
+          name="input-age"
+          id="input-age"
+          size="3"
+          max="120"
+          min="0"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend>Outros Dados</legend>
+
+        <label id="label-observations" for="input-observations">
+          Observações:
+        </label>
+        <textarea name="input-observations" rows="5" cols="150">
+          Digite os dados
+        </textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Campos com Restrições</legend>
+
+        <label id="label-state" for="input-state">Estado: </label>
+        <select name="input-state" id="input-state">
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+        </select>
+
+        <label id="label-city" for="input-city">Cidade: </label>
+        <select name="input-city" id="input-city" multiple>
+          <option value="rio-branco">Rio Branco</option>
+          <option value="maceio">Maceió</option>
+          <option value="macapa">Macapá</option>
+          <option value="manaus">Manaus</option>
+          <option value="salvador">Salvador</option>
+          <option value="fortaleza">Fortaleza</option>
+          <option value="brasilia">Brasília</option>
+          <option value="vitoria">Vitória</option>
+          <option value="goiania">Goiânia</option>
+          <option value="sao-luis">São Luís</option>
+          <option value="cuiaba">Cuiabá</option>
+          <option value="campo-grande">Campo Grande</option>
+          <option value="belo-horizonte">Belo Horizonte</option>
+          <option value="belem">Belém</option>
+          <option value="joao-pessoa">João Pessoa</option>
+          <option value="curitiba">Curitiba</option>
+          <option value="recife">Recife</option>
+          <option value="teresina">Teresina</option>
+          <option value="rio-de-janeiro">Rio de Janeiro</option>
+          <option value="natal">Natal</option>
+          <option value="porto-alegre">Porto Alegre</option>
+          <option value="porto-velho">Porto Velho</option>
+          <option value="boa-vista">Boa Vista</option>
+          <option value="florianopolis">Florianópolis</option>
+          <option value="sao-paulo">São Paulo</option>
+          <option value="aracaju">Aracaju</option>
+          <option value="palmas">Palmas</option>
+        </select>
+        <br />
+
+        <label id="label-gender" for="input-gender">Sexo: </label>
+        <input type="radio" name="input-gender" value="M" />Masculino
+        <input type="radio" name="input-gender" value="F" />Feminino
+        <input type="radio" name="input-gender" value="O" />Outro
+        <br />
+
+        <label id="label-options" for="input-options">Opções: </label>
+        <input type="checkbox" name="input-options-1" value="tv" />Televisão
+        <input type="checkbox" name="input-options-2" value="phone" />Celular
+        <input type="checkbox" name="input-options-3" value="pc" />Computador
+        <input type="checkbox" name="input-options-4" value="tablet" />Tablet
+        <br />
+
+        <label id="label-birthdate" for="input-birthdate"
+          >Data de Nascimento:
+        </label>
+        <input
+          type="datetime-local"
+          name="input-birthdate"
+          id="input-birthdate"
+          min="2000-01-01"
+          max="2025-04-11"
+        />
+        <br />
+
+        <label id="label-color" for="input-color">Cor: </label>
+        <input type="color" name="input-color" id="input-color" />
+      </fieldset>
+    </form>
+  </body>
+</html>

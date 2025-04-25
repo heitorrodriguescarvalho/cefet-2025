@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro</title>
+  </head>
+  <body>
+    <form>
+      <table border>
+        <tr>
+          <th colspan="2">Cadastro</th>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-name" for="input-name">Nome completo: </label>
+          </td>
+          <td>
+            <input type="text" id="input-name" name="input-name" required />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-address" for="input-adress">Endereço: </label>
+          </td>
+          <td>
+            <input
+              type="text"
+              id="input-address"
+              name="input-address"
+              required
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-age" for="input-age">Idade: </label>
+          </td>
+          <td>
+            <input
+              type="range"
+              id="input-age"
+              name="input-age"
+              required
+              min="0"
+              max="100"
+              step="1"
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-email" for="input-email">Email: </label>
+          </td>
+          <td>
+            <input type="email" id="input-email" name="input-email" required />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-password" for="input-password">Senha: </label>
+          </td>
+          <td>
+            <input
+              type="password"
+              id="input-password"
+              name="input-password"
+              required
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-state" for="input-state">Estado Alvo: </label>
+          </td>
+          <td>
+            <select id="input-state" name="input-state" required>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-city" for="input-city">Cidade: </label>
+          </td>
+          <td>
+            <select id="input-capital" name="input-capital" required>
+              <option value="rio-branco">Rio Branco</option>
+              <option value="maceio">Maceió</option>
+              <option value="macapa">Macapá</option>
+              <option value="manaus">Manaus</option>
+              <option value="salvador">Salvador</option>
+              <option value="fortaleza">Fortaleza</option>
+              <option value="brasilia">Brasília</option>
+              <option value="vitoria">Vitória</option>
+              <option value="goiania">Goiânia</option>
+              <option value="sao-luis">São Luís</option>
+              <option value="cuiaba">Cuiabá</option>
+              <option value="campo-grande">Campo Grande</option>
+              <option value="belo-horizonte">Belo Horizonte</option>
+              <option value="belem">Belém</option>
+              <option value="joao-pessoa">João Pessoa</option>
+              <option value="curitiba">Curitiba</option>
+              <option value="recife">Recife</option>
+              <option value="teresina">Teresina</option>
+              <option value="rio-de-janeiro">Rio de Janeiro</option>
+              <option value="natal">Natal</option>
+              <option value="porto-alegre">Porto Alegre</option>
+              <option value="porto-velho">Porto Velho</option>
+              <option value="boa-vista">Boa Vista</option>
+              <option value="florianopolis">Florianópolis</option>
+              <option value="sao-paulo">São Paulo</option>
+              <option value="aracaju">Aracaju</option>
+              <option value="palmas">Palmas</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-publish" for="input-publish">Publicar em: </label>
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              name="input-publish"
+              value="radio"
+              required
+            />
+            Radio
+
+            <input type="checkbox" name="input-publish" value="tv" required />
+            TV
+
+            <input
+              type="checkbox"
+              name="input-publish"
+              value="internet"
+              required
+            />
+            Internet
+
+            <input
+              type="checkbox"
+              name="input-publish"
+              value="others"
+              required
+            />
+            Outros
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-contract" for="input-contract"
+              >Contrato Anual:
+            </label>
+          </td>
+          <td>
+            <input type="radio" name="input-contract" value="yes" required />
+            Sim
+
+            <input type="radio" name="input-contract" value="no" required />
+            Não
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-color" for="input-color">Cor principal: </label>
+          </td>
+          <td>
+            <input type="color" id="input-color" name="input-color" required />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <label id="label-date" for="input-date">Data para publicar: </label>
+          </td>
+          <td>
+            <input
+              type="datetime-local"
+              id="input-date"
+              name="input-date"
+              required
+            />
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpar</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

@@ -1,20 +1,38 @@
 package exercises.bank_account;
 
 public class Conta {
-  int numero;
-  String nome_titular;
-  double saldo;
+  private int id;
+  private String name;
+  private double amount;
 
-  void depositar(double valor) {
-    this.saldo += valor;
+  public Conta(String name, int id, double amount) {
+    this.id = id;
+    this.name = name;
+    this.amount = amount;
   }
 
-  boolean sacar(double valor) {
-    if (this.saldo < valor)
+  void deposit(double valor) {
+    this.amount += valor;
+  }
+
+  boolean withdraw(double valor) {
+    if (this.amount < valor)
       return false;
 
-    this.saldo -= valor;
+    this.amount -= valor;
 
     return true;
+  }
+
+  double getAmount() {
+    return this.amount;
+  }
+
+  String getName() {
+    return this.name;
+  }
+
+  int getId() {
+    return this.id;
   }
 }

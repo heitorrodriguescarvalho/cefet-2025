@@ -1,0 +1,1 @@
+SELECT AVG(salario) as average_salary from funcionarios;

@@ -1,6 +1,3 @@
-# Maven target directory
-/target/
-
 # Compiled class files
 *.class
 
@@ -9,7 +6,7 @@
 
 # Maven wrapper
 .mvn/
-!/.mvn/wrapper/maven-wrapper.jar
+!mvn/wrapper/maven-wrapper.jar
 
 # Eclipse or VSCode files
 .project
@@ -29,7 +26,7 @@ build/
 nbbuild/
 dist/
 nbdist/
-.nb-gradle/
+nb-gradle/
 
 # OS-specific files
 .DS_Store
@@ -47,7 +44,7 @@ Thumbs.db
 *.ear
 
 # Generated docs
-/target/site/
+target/site/
 
 # Environment variables
 .env
@@ -55,6 +52,6 @@ Thumbs.db
 .env.*.local
 
 # JetBrains specific
-/.idea/
-/*.iml
-/out/
+.idea/
+*.iml
+out/

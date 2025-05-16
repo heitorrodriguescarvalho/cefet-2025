@@ -3,12 +3,12 @@ package exercises.bank_account;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Contas {
-  private ArrayList<Conta> accounts = new ArrayList<>();
+public class Accounts {
+  private ArrayList<Account> accounts = new ArrayList<>();
   private int idCount = 0;
 
   public void createAccount(String name, double initial_amount) {
-    Conta account = new Conta(name, idCount, initial_amount);
+    Account account = new Account(name, idCount, initial_amount);
 
     accounts.add(account);
 
@@ -31,7 +31,7 @@ public class Contas {
     return accountId;
   }
 
-  Conta getAccount(int id) {
+  Account getAccount(int id) {
     return this.accounts.get(id);
   }
 }

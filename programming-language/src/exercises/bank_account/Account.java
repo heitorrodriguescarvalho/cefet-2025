@@ -1,11 +1,11 @@
 package exercises.bank_account;
 
-public class Conta {
+public class Account {
   private int id;
   private String name;
   private double amount;
 
-  public Conta(String name, int id, double amount) {
+  public Account(String name, int id, double amount) {
     this.id = id;
     this.name = name;
     this.amount = amount;

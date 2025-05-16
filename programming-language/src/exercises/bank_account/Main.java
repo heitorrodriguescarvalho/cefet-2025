@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
-    Contas accounts = new Contas();
+    Accounts accounts = new Accounts();
 
     int input;
     int accountId;

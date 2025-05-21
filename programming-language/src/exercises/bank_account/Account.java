@@ -4,9 +4,10 @@ public class Account {
   private int id;
   private String name;
   private double amount;
+  private static int idCount = 0;
 
-  public Account(String name, int id, double amount) {
-    this.id = id;
+  public Account(String name, double amount) {
+    this.id = Account.idCount++;
     this.name = name;
     this.amount = amount;
   }

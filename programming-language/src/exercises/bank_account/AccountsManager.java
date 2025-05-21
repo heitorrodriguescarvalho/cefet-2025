@@ -3,16 +3,19 @@ package exercises.bank_account;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Accounts {
+public class AccountsManager {
   private ArrayList<Account> accounts = new ArrayList<>();
-  private int idCount = 0;
 
-  public void createAccount(String name, double initial_amount) {
-    Account account = new Account(name, idCount, initial_amount);
+  public void createAccount(String name, double initialAmount) {
+    Account account = new Account(name, initialAmount);
 
     accounts.add(account);
+  }
 
-    this.idCount++;
+  public void createSavingsAccount(String name, double initialAmount) {
+    SavingsAccount account = new SavingsAccount(name, initialAmount);
+
+    accounts.add(account);
   }
 
   public int selectAccount() {

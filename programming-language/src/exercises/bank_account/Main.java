@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
   public static void main(String[] args) {
     Scanner scan = new Scanner(System.in);
-    Accounts accounts = new Accounts();
+    AccountsManager accountsManager = new AccountsManager();
 
     int input;
     int accountId;
@@ -28,26 +28,26 @@ public class Main {
           System.out.print("Saldo: ");
           amount = scan.nextDouble();
 
-          accounts.createAccount(name, amount);
+          accountsManager.createAccount(name, amount);
 
           System.out.println("Conta criada!");
 
           break;
 
         case 2:
-          accountId = accounts.selectAccount();
+          accountId = accountsManager.selectAccount();
 
           if (accountId == -1) {
             System.out.println("Nº da conta inválido!");
             break;
           }
 
-          System.out.println("Saldo: R$" + Double.toString(accounts.getAccount(accountId).getAmount()));
+          System.out.println("Saldo: R$" + Double.toString(accountsManager.getAccount(accountId).getAmount()));
 
           break;
 
         case 3:
-          accountId = accounts.selectAccount();
+          accountId = accountsManager.selectAccount();
 
           if (accountId == -1) {
             System.out.println("Nº da conta inválido!");
@@ -57,14 +57,14 @@ public class Main {
           System.out.print("Valor do depósito: R$");
           amount = scan.nextDouble();
 
-          accounts.getAccount(accountId).deposit(amount);
+          accountsManager.getAccount(accountId).deposit(amount);
 
           System.out.println("Depósito efetuado!");
 
           break;
 
         case 4:
-          accountId = accounts.selectAccount();
+          accountId = accountsManager.selectAccount();
 
           if (accountId == -1) {
             System.out.println("Nº da conta inválido!");
@@ -74,7 +74,7 @@ public class Main {
           System.out.print("Valor do saque: R$");
           amount = scan.nextDouble();
 
-          boolean success = accounts.getAccount(accountId).withdraw(amount);
+          boolean success = accountsManager.getAccount(accountId).withdraw(amount);
 
           if (success)
             System.out.println("Saque efetuado!");

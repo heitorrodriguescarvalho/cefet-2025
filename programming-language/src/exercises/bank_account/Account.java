@@ -25,6 +25,10 @@ public class Account {
     return true;
   }
 
+  String getAccountType() {
+    return "Conta";
+  }
+
   double getAmount() {
     return this.amount;
   }

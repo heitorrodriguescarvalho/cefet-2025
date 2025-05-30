@@ -10,4 +10,9 @@ public class SavingsAccount extends Account {
 
     return super.getAmount();
   }
+
+  @Override
+  String getAccountType() {
+    return "Conta Poupança";
+  }
 }

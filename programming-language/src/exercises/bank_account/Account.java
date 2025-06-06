@@ -12,15 +12,15 @@ public class Account {
     this.amount = amount;
   }
 
-  void deposit(double valor) {
-    this.amount += valor;
+  void deposit(double amount) {
+    this.amount += amount;
   }
 
-  boolean withdraw(double valor) {
-    if (this.amount < valor)
+  boolean withdraw(double amount) {
+    if (this.amount < amount)
       return false;
 
-    this.amount -= valor;
+    this.amount -= amount;
 
     return true;
   }

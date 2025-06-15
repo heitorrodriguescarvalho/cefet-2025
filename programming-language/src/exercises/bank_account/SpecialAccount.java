@@ -12,10 +12,13 @@ public class SpecialAccount extends Account {
   }
 
   @Override
-  public void deposit(double amount) {
+  public boolean deposit(double amount) {
+    if (amount <= 0)
+      return false;
+
     if (this.credit == this.limit) {
       super.deposit(amount);
-      return;
+      return true;
     }
 
     if (this.limit - this.credit >= amount) {
@@ -25,10 +28,15 @@ public class SpecialAccount extends Account {
 
       this.credit = this.limit;
     }
+
+    return true;
   }
 
   @Override
   public boolean withdraw(double amount) {
+    if (amount <= 0)
+      return false;
+
     if (super.getAmount() + this.credit < amount)
       return false;
 

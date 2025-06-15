@@ -12,11 +12,18 @@ public class Account {
     this.amount = amount;
   }
 
-  void deposit(double amount) {
+  boolean deposit(double amount) {
+    if (amount <= 0)
+      return false;
+
     this.amount += amount;
+    return true;
   }
 
   boolean withdraw(double amount) {
+    if (amount <= 0)
+      return false;
+
     if (this.amount < amount)
       return false;
 

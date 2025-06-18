@@ -4,8 +4,8 @@ public class SpecialAccount extends Account {
   private double limit;
   private double credit;
 
-  public SpecialAccount(String name, double initialAmount, double initialLimit) {
-    super(name, initialAmount);
+  public SpecialAccount(double initialAmount, double initialLimit, Client client) {
+    super(initialAmount, client);
 
     this.limit = initialLimit;
     this.credit = initialLimit;
@@ -17,15 +17,14 @@ public class SpecialAccount extends Account {
       return false;
 
     if (this.credit == this.limit) {
-      super.deposit(amount);
+      this.amount += amount;
       return true;
     }
 
     if (this.limit - this.credit >= amount) {
       this.credit += amount;
     } else {
-      super.deposit(amount - (this.limit - this.credit));
-
+      this.amount += (amount - (this.limit - this.credit));
       this.credit = this.limit;
     }
 
@@ -37,17 +36,17 @@ public class SpecialAccount extends Account {
     if (amount <= 0)
       return false;
 
-    if (super.getAmount() + this.credit < amount)
+    if (this.amount + this.credit < amount)
       return false;
 
-    if (super.getAmount() >= amount) {
-      super.withdraw(amount);
+    if (this.amount >= amount) {
+      this.amount -= amount;
 
       return true;
     }
 
-    this.credit -= amount - super.getAmount();
-    super.withdraw(super.getAmount());
+    this.credit -= amount - this.amount;
+    this.amount = 0;
 
     return true;
   }

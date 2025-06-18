@@ -1,50 +1,32 @@
 package exercises.bank_account;
 
-public class Account {
+public abstract class Account {
   private int id;
-  private String name;
-  private double amount;
+  protected double amount;
+  private Client client;
   private static int idCount = 0;
 
-  public Account(String name, double amount) {
+  public Account(double amount, Client client) {
     this.id = Account.idCount++;
-    this.name = name;
     this.amount = amount;
+    this.client = client;
   }
 
-  boolean deposit(double amount) {
-    if (amount <= 0)
-      return false;
+  public abstract boolean deposit(double amount);
 
-    this.amount += amount;
-    return true;
+  public abstract boolean withdraw(double amount);
+
+  public abstract String getAccountType();
+
+  public Client getClient() {
+    return this.client;
   }
 
-  boolean withdraw(double amount) {
-    if (amount <= 0)
-      return false;
-
-    if (this.amount < amount)
-      return false;
-
-    this.amount -= amount;
-
-    return true;
-  }
-
-  String getAccountType() {
-    return "Conta";
-  }
-
-  double getAmount() {
+  public double getAmount() {
     return this.amount;
   }
 
-  String getName() {
-    return this.name;
-  }
-
-  int getId() {
+  public int getId() {
     return this.id;
   }
 }

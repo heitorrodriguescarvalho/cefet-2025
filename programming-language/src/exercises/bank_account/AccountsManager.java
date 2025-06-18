@@ -4,39 +4,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountsManager {
-  private ArrayList<Account> accounts = new ArrayList<>();
+  private ArrayList<Account> accounts;
+  private Client client;
 
-  public Account createAccount() {
-    Scanner scan = new Scanner(System.in);
-    Menu menu = new Menu();
-
-    System.out.print("Nome: ");
-    String name = scan.nextLine();
-
-    System.out.print("Saldo: R$");
-    Double initialAmount = scan.nextDouble();
-
-    if (initialAmount < 0) {
-      System.out.println("\nSaldo inválido!");
-
-      return null;
-    }
-
-    Account account = new Account(name, initialAmount);
-
-    accounts.add(account);
-
-    return account;
+  public AccountsManager(Client client) {
+    this.accounts = new ArrayList<>();
+    this.client = client;
   }
 
   public Account createSavingsAccount() {
     Scanner scan = new Scanner(System.in);
     Menu menu = new Menu();
 
-    System.out.print("Nome: ");
-    String name = scan.nextLine();
-
-    System.out.print("Saldo: R$");
+    System.out.print("Saldo inicial: R$");
     Double initialAmount = scan.nextDouble();
 
     if (initialAmount < 0) {
@@ -45,7 +25,7 @@ public class AccountsManager {
       return null;
     }
 
-    SavingsAccount account = new SavingsAccount(name, initialAmount);
+    SavingsAccount account = new SavingsAccount(initialAmount, this.client);
 
     accounts.add(account);
 
@@ -56,10 +36,7 @@ public class AccountsManager {
     Scanner scan = new Scanner(System.in);
     Menu menu = new Menu();
 
-    System.out.print("Nome: ");
-    String name = scan.nextLine();
-
-    System.out.print("Saldo: R$");
+    System.out.print("Saldo inicial: R$");
     Double initialAmount = scan.nextDouble();
 
     if (initialAmount < 0) {
@@ -77,7 +54,7 @@ public class AccountsManager {
       return null;
     }
 
-    SpecialAccount account = new SpecialAccount(name, initialAmount, initialLimit);
+    SpecialAccount account = new SpecialAccount(initialAmount, initialLimit, this.client);
 
     accounts.add(account);
 

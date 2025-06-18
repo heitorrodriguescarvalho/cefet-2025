@@ -1,13 +1,15 @@
 package exercises.bank_account;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Menu {
-  private AccountsManager accountsManager;
   private Scanner scan;
+  private ArrayList<Client> clients;
 
   public Menu() {
-    this.accountsManager = new AccountsManager();
+    this.clients = new ArrayList<>();
     this.scan = new Scanner(System.in);
   }
 
@@ -15,34 +17,29 @@ public class Menu {
     this.clearTerminal();
 
     System.out.print(
-        "\n1. Criar conta\n2. Ver saldo\n3. Depositar\n4. Sacar\n5. Ver limite\n6. Ver crédito\n\nOutro número encerrará o programa\n\nDigite um número: ");
+        "\n1. Cadastrar cliente\n2. Selecionar cliente\n\nOutro número encerrará o programa...\n\nDigite um número: ");
 
     int input = this.scan.nextInt();
     this.scan.nextLine();
 
+    Client client = null;
+
     switch (input) {
       case 1:
-        this.createAccount();
-        break;
+        client = this.createClient();
 
       case 2:
-        this.checkAmount();
-        break;
+        if (client == null)
+          client = this.selectClient();
 
-      case 3:
-        this.deposit();
-        break;
+        if (client == null)
+          break;
 
-      case 4:
-        this.withdraw();
-        break;
+        boolean exit;
+        do {
+          exit = this.accountOptions(client);
+        } while (!exit);
 
-      case 5:
-        this.checkLimit();
-        break;
-
-      case 6:
-        this.checkCredit();
         break;
 
       default:
@@ -52,16 +49,76 @@ public class Menu {
     return false;
   }
 
-  public Account selectAccount(String accountType) {
+  public Client selectClient() {
+    this.clearTerminal();
+
+    if (this.clients.isEmpty()) {
+      System.out.println("Nenhum cliente cadastrado.");
+      this.awaitEnter();
+      return null;
+    }
+
+    for (Client client : this.clients) {
+      System.out.println(Integer.toString(client.getId()) + ". " + client.getName());
+    }
+
+    System.out.print("\nOutro número voltará ao menu...\n\nSelecione um cliente: ");
+    int clientId = this.scan.nextInt();
+
+    if (clientId < 0 || clientId >= this.clients.size()) {
+      this.clearTerminal();
+      System.out.println("Nº do cliente inválido! Voltando ao menu...");
+      this.scan.nextLine();
+      this.awaitEnter();
+      return null;
+    }
+
+    return this.clients.get(clientId);
+  }
+
+  public Client createClient() {
+    this.clearTerminal();
+
+    System.out.print("Nome do cliente: ");
+    String name = this.scan.nextLine();
+
+    if (name.isEmpty()) {
+      this.clearTerminal();
+      System.out.println("Nome inválido! Voltando ao menu...");
+      this.awaitEnter();
+      return null;
+    }
+
+    System.out.print("CPF do cliente: ");
+    String cpf = this.scan.nextLine();
+
+    if (Pattern.compile("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}").matcher(cpf).matches() == false) {
+      this.clearTerminal();
+      System.out.println("CPF inválido! Formato esperado: xxx.xxx.xxx-xx. Voltando ao menu...");
+      this.awaitEnter();
+      return null;
+    }
+
+    Client newClient = new Client(name, cpf);
+    this.clients.add(newClient);
+
+    this.clearTerminal();
+    System.out.println("Cliente cadastrado com sucesso!");
+    this.awaitEnter();
+
+    return newClient;
+  }
+
+  public Account selectAccount(Client client, String accountType) {
     this.clearTerminal();
 
     boolean hasAccounts = false;
 
-    for (int i = 0; i < this.accountsManager.getAccountsCount(); i++) {
-      Account account = this.accountsManager.getAccount(i);
+    for (int i = 0; i < client.accounts.getAccountsCount(); i++) {
+      Account account = client.accounts.getAccount(i);
 
       if (accountType == null || account.getAccountType().equals(accountType)) {
-        System.out.println(Integer.toString(account.getId()) + ". " + account.getName() + " ("
+        System.out.println(Integer.toString(i) + ". " + client.getName() + " ("
             + account.getAccountType() + ")");
 
         hasAccounts = true;
@@ -79,7 +136,7 @@ public class Menu {
     System.out.print("\nOutro número voltará ao menu...\n\nSelecione uma conta: ");
     int accountId = this.scan.nextInt();
 
-    if (accountId < 0 || accountId >= this.accountsManager.getAccountsCount()) {
+    if (accountId < 0 || accountId >= client.accounts.getAccountsCount()) {
       this.clearTerminal();
       System.out.println("Nº da conta inválido! Voltando ao menu...");
       this.scan.nextLine();
@@ -89,14 +146,55 @@ public class Menu {
       return null;
     }
 
-    return this.accountsManager.getAccount(accountId);
+    return client.accounts.getAccount(accountId);
   }
 
-  public void createAccount() {
+  public boolean accountOptions(Client client) {
     this.clearTerminal();
 
     System.out.print(
-        "\n1. Conta\n2. Conta Especial\n3. Conta Poupança\n\nOutro número voltará ao menu...\n\nDigite um número: ");
+        "\n1. Criar conta\n2. Ver saldo\n3. Depositar\n4. Sacar\n5. Ver limite\n6. Ver crédito\n\nOutro número sairá da área do cliente...\n\nDigite um número: ");
+
+    int input = this.scan.nextInt();
+    this.scan.nextLine();
+
+    switch (input) {
+      case 1:
+        this.createAccount(client);
+        break;
+
+      case 2:
+        this.checkAmount(client);
+        break;
+
+      case 3:
+        this.deposit(client);
+        break;
+
+      case 4:
+        this.withdraw(client);
+        break;
+
+      case 5:
+        this.checkLimit(client);
+        break;
+
+      case 6:
+        this.checkCredit(client);
+        break;
+
+      default:
+        return true;
+    }
+
+    return false;
+  }
+
+  public void createAccount(Client client) {
+    this.clearTerminal();
+
+    System.out.print(
+        "1. Conta Especial\n2. Conta Poupança\n\nOutro número voltará ao menu...\n\nDigite um número: ");
 
     int input = this.scan.nextInt();
 
@@ -107,15 +205,11 @@ public class Menu {
 
     switch (input) {
       case 1:
-        newAccount = this.accountsManager.createAccount();
+        newAccount = client.accounts.createSpecialAccount();
         break;
 
       case 2:
-        newAccount = this.accountsManager.createSpecialAccount();
-        break;
-
-      case 3:
-        newAccount = this.accountsManager.createSavingsAccount();
+        newAccount = client.accounts.createSavingsAccount();
         break;
 
       default:
@@ -134,8 +228,8 @@ public class Menu {
     this.awaitEnter();
   }
 
-  public void checkAmount() {
-    Account account = this.selectAccount(null);
+  public void checkAmount(Client client) {
+    Account account = this.selectAccount(client, null);
 
     if (account == null)
       return;
@@ -148,8 +242,8 @@ public class Menu {
     this.awaitEnter();
   }
 
-  public void deposit() {
-    Account account = this.selectAccount(null);
+  public void deposit(Client client) {
+    Account account = this.selectAccount(client, null);
 
     if (account == null)
       return;
@@ -179,8 +273,8 @@ public class Menu {
     this.awaitEnter();
   }
 
-  public void withdraw() {
-    Account account = this.selectAccount(null);
+  public void withdraw(Client client) {
+    Account account = this.selectAccount(client, null);
 
     if (account == null)
       return;
@@ -217,8 +311,8 @@ public class Menu {
     this.awaitEnter();
   }
 
-  public void checkLimit() {
-    SpecialAccount account = (SpecialAccount) selectAccount("Conta Especial");
+  public void checkLimit(Client client) {
+    SpecialAccount account = (SpecialAccount) selectAccount(client, "Conta Especial");
 
     if (account == null)
       return;
@@ -231,8 +325,8 @@ public class Menu {
     this.awaitEnter();
   }
 
-  public void checkCredit() {
-    SpecialAccount account = (SpecialAccount) selectAccount("Conta Especial");
+  public void checkCredit(Client client) {
+    SpecialAccount account = (SpecialAccount) selectAccount(client, "Conta Especial");
 
     if (account == null)
       return;

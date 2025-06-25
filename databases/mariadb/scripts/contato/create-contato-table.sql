@@ -1,4 +1,4 @@
-CREATE TABLE contato (
+CREATE TABLE contatos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(256) NOT NULL,
     email VARCHAR(128),
@@ -7,10 +7,10 @@ CREATE TABLE contato (
     endereco_cidade VARCHAR(32)
 );
 
-CREATE TABLE contato_telefone (
+CREATE TABLE telefones (
   contato_id INT,
   telefone CHAR(11),
 
   PRIMARY KEY (contato_id, telefone),
-  FOREIGN KEY (contato_id) REFERENCES contato (id)
+  FOREIGN KEY (contato_id) REFERENCES contatos (id)
 );

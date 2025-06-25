@@ -1,1 +1,3 @@
-SELECT * FROM contato;
+SELECT * FROM contatos;
+
+SELECT * FROM telefones;

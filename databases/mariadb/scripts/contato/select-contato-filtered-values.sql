@@ -1,3 +1,3 @@
-SELECT nome, telefone FROM contato WHERE id BETWEEN 2 AND 3;
+SELECT nome FROM contatos, telefones WHERE id = contato_id AND telefone LIKE "%999";
 
-SELECT * FROM contato WHERE telefone NOT LIKE "__9%";
+SELECT telefone FROM contatos, telefones WHERE id = contato_id AND nome = "Ana";

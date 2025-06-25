@@ -1,13 +1,23 @@
-INSERT INTO contato(
-	nome,
-	telefone,
-	email
+INSERT INTO contatos(
+	nome
 ) VALUES (
-	"Heitor",
-	"37991847926",
-	"heitorrodrigues@emai.com"
+	"Ana"
 ), (
-	"Diego",
-	"37899660102",
-	"diego@email.com"
+	"João"
+), (
+	"Maria"
+);
+
+INSERT INTO telefones(
+	contato_id,
+	telefone
+) VALUES (
+	1,
+	37123
+), (
+	1,
+	37999
+), (
+	3,
+	37123
 );

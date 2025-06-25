@@ -126,7 +126,10 @@ public class Menu {
     }
 
     if (!hasAccounts) {
-      System.out.println("Nenhuma " + accountType + " disponível.");
+      if (accountType != null)
+        System.out.println("Nenhuma " + accountType + " disponível para " + client.getName() + ".");
+      else
+        System.out.println("Nenhuma conta disponível para " + client.getName() + ".");
 
       this.awaitEnter();
 

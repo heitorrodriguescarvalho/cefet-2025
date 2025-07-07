@@ -1,6 +1,6 @@
 package exercises.bank_account;
 
-public class SavingsAccount extends Account {
+public class SavingsAccount extends Account implements Investment {
   public SavingsAccount(double initialAmount, Client client) {
     super(initialAmount, client);
   }
@@ -32,9 +32,8 @@ public class SavingsAccount extends Account {
     return "Conta Poupança";
   }
 
-  public double readjust(double percentage) {
-    this.deposit(super.getAmount() * (percentage / 100));
-
-    return super.getAmount();
+  @Override
+  public void readjust(double rate) {
+    this.deposit(super.getAmount() * (rate / 100));
   }
 }

@@ -156,7 +156,7 @@ public class Menu {
     this.clearTerminal();
 
     System.out.print(
-        "\n1. Criar conta\n2. Ver saldo\n3. Depositar\n4. Sacar\n5. Ver limite\n6. Ver crédito\n\nOutro número sairá da área do cliente...\n\nDigite um número: ");
+        "\n1. Criar conta\n2. Ver saldo\n3. Depositar\n4. Sacar\n5. Ver limite\n6. Ver crédito\n7. Reajustar\n\nOutro número sairá da área do cliente...\n\nDigite um número: ");
 
     int input = this.scan.nextInt();
     this.scan.nextLine();
@@ -184,6 +184,10 @@ public class Menu {
 
       case 6:
         this.checkCredit(client);
+        break;
+
+      case 7:
+        this.readjust(client);
         break;
 
       default:
@@ -309,6 +313,37 @@ public class Menu {
     if (account instanceof SpecialAccount) {
       System.out.println("Crédito disponível: R$" + Double.toString(((SpecialAccount) account).getCredit()));
     }
+
+    this.scan.nextLine();
+    this.awaitEnter();
+  }
+
+  public void readjust(Client client) {
+    SavingsAccount account = (SavingsAccount) selectAccount(client, "Conta Poupança");
+
+    if (account == null)
+      return;
+
+    this.clearTerminal();
+
+    System.out.print("Taxa de reajuste (%): ");
+    double rate = this.scan.nextDouble();
+
+    if (rate <= 0) {
+      this.clearTerminal();
+      System.out.println("Taxa inválida! Voltando ao menu...");
+      this.scan.nextLine();
+      this.awaitEnter();
+
+      return;
+    }
+
+    account.readjust(rate);
+
+    this.clearTerminal();
+
+    System.out.println("Reajuste efetuado!");
+    System.out.println("Saldo atual: R$" + Double.toString(account.getAmount()));
 
     this.scan.nextLine();
     this.awaitEnter();

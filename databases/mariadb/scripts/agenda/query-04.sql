@@ -1,0 +1,1 @@
+SELECT nome, (SELECT GROUP_CONCAT(telefone SEPARATOR ", ") FROM contato_telefone WHERE contato_id = id) AS telefones FROM contato;

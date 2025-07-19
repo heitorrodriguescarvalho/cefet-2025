@@ -1,0 +1,1 @@
+SELECT nome, (SELECT COUNT(*) FROM contato_telefone WHERE contato_id = id) AS telefones FROM contato ORDER BY nome;

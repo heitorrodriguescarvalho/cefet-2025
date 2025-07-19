@@ -1,0 +1,1 @@
+SELECT DISTINCT nome FROM contato, contato_telefone WHERE id = contato_id;

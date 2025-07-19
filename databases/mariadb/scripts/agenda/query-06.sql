@@ -1,0 +1,1 @@
+SELECT endereco_cidade, (SELECT COUNT(*) FROM contato_telefone WHERE contato_id = id) AS contatos FROM contato WHERE endereco_cidade IS NOT NULL ORDER BY endereco_cidade;

@@ -1,0 +1,1 @@
+SELECT nome, CONCAT(endereco_logradouro, ", ", endereco_numero, ", ", COALESCE(CONCAT(endereco_complemento, " - "), ""), endereco_cep, " - ", endereco_cidade) AS endereco FROM contato WHERE endereco_cidade = "Sao Paulo";

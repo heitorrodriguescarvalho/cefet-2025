@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.io.*" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 
   <form name="message-form" method="post">
     <label id="message-label"><b>Mensagem</b></label>
-    <input type="text" name="message-text" placeholder="Digite sua mensagem..." size="150" maxlength="140" required>
+    <input type="text" name="message-text" placeholder="Digite sua mensagem..." size="150" maxlength="140" autofocus required>
 
     <label id="emoji-label"><b>Emoji</b></label>
     <select name="emoji">
@@ -28,6 +28,7 @@
     if (request.getParameter("message-text") != null) {
       String messageText = request.getParameter("message-text");
       String emoji = request.getParameter("emoji");
+
       String finalMessage = "<img src='" + session.getAttribute("avatar") + "' alt='avatar' width='50' height='50'/> "
         + "<font color='" + session.getAttribute("color") + "'>"
         + session.getAttribute("nick") + ": " + messageText + "</font>";
@@ -35,6 +36,15 @@
       if (!emoji.toString().equals("")) {
         finalMessage += " <img src='" + emoji + "' alt='emoji' width='30' height='30'/>";
       }
+      finalMessage += "<br/>";
+
+      String dbPath = "/home/heitor/Code/cefet-2025/web-programming/bate_papo/src/main/webapp/db/messages.txt";
+
+      FileWriter writer = new FileWriter(dbPath, true);
+
+      writer.write(finalMessage);
+
+      writer.close();
     }
   %>
 </body>

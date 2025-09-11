@@ -4,9 +4,8 @@ services:
     container_name: mariadb
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
-      - MARIADB_DATABASE=agenda
-      - MARIADB_USER=docker
-      - MARIADB_PASSWORD=docker
+      - MARIADB_DATABASE=db
+      - MARIADB_USER=user
     ports:
       - "3306:3306"
     volumes:

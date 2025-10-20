@@ -6,13 +6,13 @@ VALUES
   ("Davi");
 
 INSERT INTO
-  enviroments(name)
+  environments(name)
 VALUES
   ("Library"),
   ("Classroom");
 
 INSERT INTO
-  accesses (person_id, enviroment_id, access_at)
+  accesses (person_id, environment_id, access_at)
 VALUES
   (1, 1, '2025-09-15 15:30:00'),
   (2, 2, '2025-09-16 10:00:00'),

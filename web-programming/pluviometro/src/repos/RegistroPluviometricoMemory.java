@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import models.RegistroPluviometrico;
 
 public class RegistroPluviometricoMemory implements RegistroPluviometricoRepo {
-  private ArrayList<RegistroPluviometrico> registros = new ArrayList<>();
+  private ArrayList<RegistroPluviometrico> records = new ArrayList<>();
 
   @Override
   public void create(RegistroPluviometrico registro) {
@@ -18,20 +18,31 @@ public class RegistroPluviometricoMemory implements RegistroPluviometricoRepo {
       throw new IllegalArgumentException("O valor do registro não pode ser negativo");
     }
 
-    for (RegistroPluviometrico r : this.registros) {
+    for (RegistroPluviometrico r : this.records) {
       if (r.getDate().equals(registro.getDate()) && r.getPluviometro().equals(registro.getPluviometro())) {
         throw new IllegalArgumentException("Já existe um registro nesse pluviômetro nessa data");
       }
     }
 
-    this.registros.add(registro);
+    this.records.add(registro);
+  }
+
+  @Override
+  public RegistroPluviometrico retrieve(int id) {
+    for (RegistroPluviometrico record : this.records) {
+      if (record.getId() == id) {
+        return record;
+      }
+    }
+
+    return null;
   }
 
   @Override
   public void update(RegistroPluviometrico oldRegistro, RegistroPluviometrico newRegistro) {
-    for (int i = 0; i < this.registros.size(); i++) {
-      if (this.registros.get(i).equals(oldRegistro)) {
-        this.registros.set(i, newRegistro);
+    for (int i = 0; i < this.records.size(); i++) {
+      if (this.records.get(i).equals(oldRegistro)) {
+        this.records.set(i, newRegistro);
 
         return;
       }
@@ -40,11 +51,11 @@ public class RegistroPluviometricoMemory implements RegistroPluviometricoRepo {
 
   @Override
   public ArrayList<RegistroPluviometrico> retrieveAll() {
-    return new ArrayList<>(this.registros);
+    return new ArrayList<>(this.records);
   }
 
   @Override
   public void delete(RegistroPluviometrico registro) {
-    this.registros.removeIf(r -> r.equals(registro));
+    this.records.removeIf(r -> r.equals(registro));
   }
 }

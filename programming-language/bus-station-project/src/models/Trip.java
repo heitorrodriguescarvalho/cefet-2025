@@ -36,7 +36,7 @@ public class Trip {
     return this.isComingBack;
   }
 
-  public void setComingBack(boolean isComingBack) {
+  public void setIsComingBack(boolean isComingBack) {
     this.isComingBack = isComingBack;
   }
 

@@ -30,19 +30,19 @@ public class Line {
     this.price = price;
   }
 
-  public String getfirstCity() {
+  public String getStartCity() {
     return startCity;
   }
 
-  public String getsecondCity() {
+  public String getEndCity() {
     return endCity;
   }
 
-  public void setfirstCity(String firstCity) {
-    this.startCity = firstCity;
+  public void setStartCity(String startCity) {
+    this.startCity = startCity;
   }
 
-  public void setsecondCity(String secondCity) {
-    this.endCity = secondCity;
+  public void setEndCity(String endCity) {
+    this.endCity = endCity;
   }
 }

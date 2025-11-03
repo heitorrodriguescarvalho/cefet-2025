@@ -4,12 +4,12 @@ public class Ticket {
   private int id;
   private static int idCounter = 0;
   private Trip trip;
-  private double price;
+  private double amountPaid;
 
-  public Ticket(Trip trip, double price) {
+  public Ticket(Trip trip, double payedPrice) {
     this.id = idCounter++;
     this.trip = trip;
-    this.price = price;
+    this.amountPaid = payedPrice;
   }
 
   public int getId() {
@@ -28,11 +28,11 @@ public class Ticket {
     this.trip = trip;
   }
 
-  public double getPrice() {
-    return this.price;
+  public double getAmountPaid() {
+    return this.amountPaid;
   }
 
-  public void setPrice(double price) {
-    this.price = price;
+  public void setAmountPaid(double price) {
+    this.amountPaid = price;
   }
 }

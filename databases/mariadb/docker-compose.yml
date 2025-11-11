@@ -1,6 +1,6 @@
 services:
   service-mariadb:
-    image: bitnami/mariadb:12.0.2
+    image: bitnami/mariadb:latest
     container_name: mariadb
     environment:
       - ALLOW_EMPTY_PASSWORD=yes

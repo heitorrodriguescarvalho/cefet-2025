@@ -2,7 +2,7 @@ package exercises.stack;
 
 import java.util.Scanner;
 
-public class Main {
+public class VerifyExpression {
   public static void main(String[] args) {
     Stack<Character> stack = new Stack<>();
     Scanner scan = new Scanner(System.in);

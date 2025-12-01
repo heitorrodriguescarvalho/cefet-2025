@@ -20,6 +20,7 @@ public class ArtistRepoDB implements ArtistRepo {
     this.connection = Database.getConnection();
 
     this.initializeTable();
+    this.seed();
   }
 
   private void initializeTable() {
@@ -45,6 +46,21 @@ public class ArtistRepoDB implements ArtistRepo {
         }
       } catch (SQLException ignored) {
       }
+    }
+  }
+
+  private void seed() {
+    if (this.retrieveAll().isEmpty()) {
+      this.create(new Artist("Milton Nascimento", "Brasileiro", LocalDate.of(1942, 10, 26),
+          "Lendário músico e compositor brasileiro, figura-chave do Clube da Esquina."));
+      this.create(new Artist("Lô Borges", "Brasileiro", LocalDate.of(1949, 3, 27),
+          "Guitarrista e compositor brasileiro, cofundador do movimento Clube da Esquina."));
+      this.create(new Artist("Wagner Tiso", "Brasileiro", LocalDate.of(1945, 9, 12),
+          "Tecladista e compositor brasileiro, membro essencial do Clube da Esquina."));
+      this.create(new Artist("Beto Guedes", "Brasileiro", LocalDate.of(1951, 9, 26),
+          "Guitarrista e cantor brasileiro, artista proeminente na cena do Clube da Esquina."));
+      this.create(new Artist("Toninho Horta", "Brasileiro", LocalDate.of(1948, 12, 4),
+          "Guitarrista e compositor brasileiro, figura influente no Clube da Esquina."));
     }
   }
 

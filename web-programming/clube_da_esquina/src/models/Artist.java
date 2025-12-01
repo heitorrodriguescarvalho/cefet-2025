@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Artist {
-  private static int idCount = 0;
+  private static int idCount = 5;
   private int id;
   private String name;
   private String citizenship;

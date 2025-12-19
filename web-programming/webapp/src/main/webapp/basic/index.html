@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basic CRUD Operations</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+			min-height: 100vh;
+			padding: 20px;
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			background: white;
+			border-radius: 10px;
+			box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+			padding: 30px;
+		}
+
+		h1 {
+			text-align: center;
+			color: #333;
+			margin-bottom: 30px;
+			font-size: 2.5em;
+		}
+
+		.operations-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 20px;
+			margin-bottom: 30px;
+		}
+
+		.operation-card {
+			background: #f8f9fa;
+			border: 2px solid #e9ecef;
+			border-radius: 8px;
+			padding: 20px;
+			transition: all 0.3s ease;
+		}
+
+		.operation-card:hover {
+			border-color: #667eea;
+			box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+		}
+
+		.operation-card h2 {
+			color: #667eea;
+			font-size: 1.3em;
+			margin-bottom: 15px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.http-method {
+			display: inline-block;
+			padding: 2px 8px;
+			border-radius: 4px;
+			font-size: 0.8em;
+			font-weight: bold;
+			color: white;
+		}
+
+		.get-method {
+			background: #17a2b8;
+		}
+
+		.post-method {
+			background: #28a745;
+		}
+
+		.put-method {
+			background: #ffc107;
+			color: #333;
+		}
+
+		.delete-method {
+			background: #dc3545;
+		}
+
+		.form-group {
+			margin-bottom: 12px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 5px;
+			color: #495057;
+			font-weight: 500;
+			font-size: 0.9em;
+		}
+
+		input[type="text"] {
+			width: 100%;
+			padding: 10px;
+			border: 1px solid #ced4da;
+			border-radius: 4px;
+			font-size: 0.9em;
+			transition: border-color 0.2s;
+		}
+
+		input[type="text"]:focus {
+			outline: none;
+			border-color: #667eea;
+			box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+		}
+
+		.button-group {
+			display: flex;
+			gap: 10px;
+			margin-top: 15px;
+		}
+
+		button {
+			flex: 1;
+			padding: 10px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-weight: bold;
+			transition: all 0.2s;
+			font-size: 0.9em;
+		}
+
+		.btn-primary {
+			background: #667eea;
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background: #5568d3;
+			transform: translateY(-2px);
+			box-shadow: 0 5px 10px rgba(102, 126, 234, 0.3);
+		}
+
+		.btn-primary:active {
+			transform: translateY(0);
+		}
+
+		.btn-secondary {
+			background: #6c757d;
+			color: white;
+		}
+
+		.btn-secondary:hover {
+			background: #5a6268;
+		}
+
+		.response-section {
+			margin-top: 30px;
+			padding: 20px;
+			background: #f8f9fa;
+			border-radius: 8px;
+			border: 2px solid #e9ecef;
+		}
+
+		.response-section h3 {
+			color: #333;
+			margin-bottom: 15px;
+			font-size: 1.1em;
+		}
+
+		.response-display {
+			background: white;
+			border: 1px solid #dee2e6;
+			border-radius: 4px;
+			padding: 15px;
+			margin-bottom: 10px;
+			max-height: 300px;
+			overflow-y: auto;
+			font-family: 'Courier New', monospace;
+			font-size: 0.85em;
+			line-height: 1.6;
+		}
+
+		.response-display.success {
+			border-left: 4px solid #28a745;
+			background: #f0f7f4;
+		}
+
+		.response-display.error {
+			border-left: 4px solid #dc3545;
+			background: #fdf5f5;
+		}
+
+		.response-display.info {
+			border-left: 4px solid #17a2b8;
+			background: #f0f8fb;
+		}
+
+		.loading {
+			color: #667eea;
+			font-style: italic;
+		}
+
+		.status-code {
+			display: inline-block;
+			padding: 4px 8px;
+			border-radius: 3px;
+			margin-right: 10px;
+			font-weight: bold;
+			font-size: 0.85em;
+		}
+
+		.status-success {
+			background: #d4edda;
+			color: #155724;
+		}
+
+		.status-error {
+			background: #f8d7da;
+			color: #721c24;
+		}
+
+		.status-info {
+			background: #d1ecf1;
+			color: #0c5460;
+		}
+
+		.timestamp {
+			color: #6c757d;
+			font-size: 0.8em;
+			margin-top: 10px;
+		}
+
+		@media (max-width: 768px) {
+			.container {
+				padding: 15px;
+			}
+
+			h1 {
+				font-size: 1.8em;
+			}
+
+			.operations-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>🚀 Basic CRUD Operations</h1>
+
+		<div class="operations-grid">
+			<!-- GET ALL -->
+			<div class="operation-card">
+				<h2><span class="http-method get-method">GET</span>List All</h2>
+				<p style="color: #6c757d; margin-bottom: 15px; font-size: 0.9em;">Retrieve all records</p>
+				<div class="button-group">
+					<button class="btn-primary" onclick="fetchAll()">Fetch All</button>
+				</div>
+				<div id="getall-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+			</div>
+
+			<!-- GET BY HOSTNAME -->
+			<div class="operation-card">
+				<h2><span class="http-method get-method">GET</span>By Hostname</h2>
+				<p style="color: #6c757d; margin-bottom: 15px; font-size: 0.9em;">Retrieve single record by hostname</p>
+				<div class="form-group">
+					<label for="get-hostname">Hostname:</label>
+					<input type="text" id="get-hostname" placeholder="Enter hostname">
+				</div>
+				<div class="button-group">
+					<button class="btn-primary" onclick="fetchByHostname()">Fetch</button>
+					<button class="btn-secondary" onclick="clearInput('get-hostname')">Clear</button>
+				</div>
+				<div id="get-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+			</div>
+
+			<!-- POST CREATE -->
+			<div class="operation-card">
+				<h2><span class="http-method post-method">POST</span>Create</h2>
+				<p style="color: #6c757d; margin-bottom: 15px; font-size: 0.9em;">Create a new record</p>
+				<div class="form-group">
+					<label for="post-hostname">Hostname:</label>
+					<input type="text" id="post-hostname" placeholder="Enter hostname">
+				</div>
+				<div class="form-group">
+					<label for="post-username">Username:</label>
+					<input type="text" id="post-username" placeholder="Enter username">
+				</div>
+				<div class="button-group">
+					<button class="btn-primary" onclick="createRecord()">Create</button>
+					<button class="btn-secondary" onclick="clearInput('post-hostname', 'post-username')">Clear</button>
+				</div>
+				<div id="post-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+			</div>
+
+			<!-- PUT UPDATE -->
+			<div class="operation-card">
+				<h2><span class="http-method put-method">PUT</span>Update</h2>
+				<p style="color: #6c757d; margin-bottom: 15px; font-size: 0.9em;">Update an existing record</p>
+				<div class="form-group">
+					<label for="put-hostname">Hostname:</label>
+					<input type="text" id="put-hostname" placeholder="Enter hostname">
+				</div>
+				<div class="form-group">
+					<label for="put-username">New Username:</label>
+					<input type="text" id="put-username" placeholder="Enter new username">
+				</div>
+				<div class="button-group">
+					<button class="btn-primary" onclick="updateRecord()">Update</button>
+					<button class="btn-secondary" onclick="clearInput('put-hostname', 'put-username')">Clear</button>
+				</div>
+				<div id="put-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+			</div>
+
+			<!-- DELETE -->
+			<div class="operation-card">
+				<h2><span class="http-method delete-method">DELETE</span>Delete</h2>
+				<p style="color: #6c757d; margin-bottom: 15px; font-size: 0.9em;">Delete a record by hostname</p>
+				<div class="form-group">
+					<label for="delete-hostname">Hostname:</label>
+					<input type="text" id="delete-hostname" placeholder="Enter hostname">
+				</div>
+				<div class="button-group">
+					<button class="btn-primary" onclick="deleteRecord()">Delete</button>
+					<button class="btn-secondary" onclick="clearInput('delete-hostname')">Clear</button>
+				</div>
+				<div id="delete-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+			</div>
+		</div>
+
+		<!-- Response Summary -->
+		<div class="response-section">
+			<h3>📋 Operation Log</h3>
+			<div id="log-display" class="response-display">
+				<span class="loading">No operations yet. Start by clicking any button above!</span>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const API_BASE = window.location.pathname.split('/').slice(0, -1).join('/') + '/api';
+
+		function showResponse(elementId, response, statusCode) {
+			const element = document.getElementById(elementId);
+			const statusClass = statusCode >= 200 && statusCode < 300 ? 'success' : 'error';
+			const statusBadge = statusCode >= 200 && statusCode < 300 ? 'status-success' : 'status-error';
+
+			element.className = `response-display ${statusClass}`;
+			element.innerHTML = `
+				<span class="status-code ${statusBadge}">${statusCode}</span>
+				<span>${new Date().toLocaleTimeString()}</span>
+				<hr style="margin: 10px 0; border: none; border-top: 1px solid #ccc;">
+				<pre>${JSON.stringify(response, null, 2)}</pre>
+			`;
+			element.style.display = 'block';
+			updateLog(`[${statusCode}] Response received`, response);
+		}
+
+		function updateLog(action, response) {
+			const logDisplay = document.getElementById('log-display');
+			const timestamp = new Date().toLocaleTimeString();
+			const logEntry = `<strong>[${timestamp}]</strong> ${action}<br>`;
+			logDisplay.innerHTML = logEntry + logDisplay.innerHTML;
+		}
+
+		async function fetchAll() {
+			updateLog('GET /basic/api - Fetching all records...', null);
+			try {
+				const response = await fetch(API_BASE);
+				const data = await response.json();
+				showResponse('getall-response', data, response.status);
+			} catch (error) {
+				showResponse('getall-response', { error: error.message }, 500);
+			}
+		}
+
+		async function fetchByHostname() {
+			const hostname = document.getElementById('get-hostname').value.trim();
+			if (!hostname) {
+				alert('Please enter a hostname');
+				return;
+			}
+			updateLog(`GET /basic/api?hostname=${hostname} - Fetching record...`, null);
+			try {
+				const response = await fetch(`${API_BASE}?hostname=${encodeURIComponent(hostname)}`);
+				const data = await response.json();
+				showResponse('get-response', data, response.status);
+			} catch (error) {
+				showResponse('get-response', { error: error.message }, 500);
+			}
+		}
+
+		async function createRecord() {
+			const hostname = document.getElementById('post-hostname').value.trim();
+			const username = document.getElementById('post-username').value.trim();
+
+			if (!hostname || !username) {
+				alert('Please fill in both hostname and username');
+				return;
+			}
+
+			updateLog(`POST /basic/api - Creating record (hostname: ${hostname}, username: ${username})...`, null);
+			try {
+				const response = await fetch(API_BASE, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					body: `hostname=${encodeURIComponent(hostname)}&username=${encodeURIComponent(username)}`
+				});
+				const data = await response.json();
+				showResponse('post-response', data, response.status);
+				if (response.ok) {
+					document.getElementById('post-hostname').value = '';
+					document.getElementById('post-username').value = '';
+				}
+			} catch (error) {
+				showResponse('post-response', { error: error.message }, 500);
+			}
+		}
+
+		async function updateRecord() {
+			const hostname = document.getElementById('put-hostname').value.trim();
+			const username = document.getElementById('put-username').value.trim();
+
+			if (!hostname || !username) {
+				alert('Please fill in both hostname and new username');
+				return;
+			}
+
+			updateLog(`PUT /basic/api - Updating record (hostname: ${hostname}, username: ${username})...`, null);
+			try {
+				const response = await fetch(API_BASE, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded'
+					},
+					body: `hostname=${encodeURIComponent(hostname)}&username=${encodeURIComponent(username)}`
+				});
+				const data = await response.json();
+				showResponse('put-response', data, response.status);
+				if (response.ok) {
+					document.getElementById('put-hostname').value = '';
+					document.getElementById('put-username').value = '';
+				}
+			} catch (error) {
+				showResponse('put-response', { error: error.message }, 500);
+			}
+		}
+
+		async function deleteRecord() {
+			const hostname = document.getElementById('delete-hostname').value.trim();
+			if (!hostname) {
+				alert('Please enter a hostname');
+				return;
+			}
+
+			updateLog(`DELETE /basic/api?hostname=${hostname} - Deleting record...`, null);
+			try {
+				const response = await fetch(`${API_BASE}?hostname=${encodeURIComponent(hostname)}`, {
+					method: 'DELETE'
+				});
+				const data = await response.json();
+				showResponse('delete-response', data, response.status);
+				if (response.ok) {
+					document.getElementById('delete-hostname').value = '';
+				}
+			} catch (error) {
+				showResponse('delete-response', { error: error.message }, 500);
+			}
+		}
+
+		function clearInput(...ids) {
+			ids.forEach(id => {
+				const element = document.getElementById(id);
+				if (element) {
+					element.value = '';
+					element.focus();
+				}
+			});
+		}
+
+		// Allow Enter key to submit forms
+		document.addEventListener('keypress', (e) => {
+			if (e.key === 'Enter') {
+				const target = e.target;
+				if (target.id === 'get-hostname') fetchByHostname();
+				else if (target.id === 'post-username') createRecord();
+				else if (target.id === 'put-username') updateRecord();
+				else if (target.id === 'delete-hostname') deleteRecord();
+			}
+		});
+	</script>
+</body>
+</html>

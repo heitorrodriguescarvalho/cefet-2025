@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRUD de Refeições</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <h1>🍲 CRUD de Refeições</h1>
+
+    <div class="operations-grid">
+      <!-- GET ALL -->
+      <div class="operation-card">
+        <h2><span class="http-method get-method">GET</span> Listar todas</h2>
+        <p>Recupera todos os registros</p>
+        <div class="button-group">
+          <button class="btn-primary" onclick="fetchAll()">Buscar tudo</button>
+        </div>
+        <div id="getall-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+
+      <!-- GET por idCartaoEstudante + dataRefeicao -->
+      <div class="operation-card">
+        <h2><span class="http-method get-method">GET</span> Por cartão + data</h2>
+        <p>Busca uma refeição pelo id do cartão e pela data</p>
+
+        <div class="form-group">
+          <label for="getByBoth-idCartaoEstudante">idCartaoEstudante:</label>
+          <input type="text" id="getByBoth-idCartaoEstudante" placeholder="Ex.: 112233AA" />
+        </div>
+
+        <div class="form-group">
+          <label for="getByBoth-dataRefeicao">dataRefeicao (YYYY-MM-DD):</label>
+          <input type="text" id="getByBoth-dataRefeicao" placeholder="Ex.: 2025-12-18" />
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="fetchByIdCartaoDataRefeicao()">Buscar</button>
+          <button class="btn-secondary" onclick="clearInput('getByBoth-idCartaoEstudante', 'getByBoth-dataRefeicao')">Limpar</button>
+        </div>
+
+        <div id="getByBoth-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+
+      <!-- GET por idCartaoEstudante -->
+      <div class="operation-card">
+        <h2><span class="http-method get-method">GET</span> Por cartão</h2>
+        <p>Busca refeições pelo id do cartão</p>
+
+        <div class="form-group">
+          <label for="getByCartao-idCartaoEstudante">idCartaoEstudante:</label>
+          <input type="text" id="getByCartao-idCartaoEstudante" placeholder="Ex.: 112233AA" />
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="fetchByIdCartao()">Buscar</button>
+          <button class="btn-secondary" onclick="clearInput('getByCartao-idCartaoEstudante')">Limpar</button>
+        </div>
+
+        <div id="getByCartao-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+
+      <!-- GET por dataRefeicao -->
+      <div class="operation-card">
+        <h2><span class="http-method get-method">GET</span> Por data</h2>
+        <p>Busca refeições pela data</p>
+
+        <div class="form-group">
+          <label for="getByData-dataRefeicao">dataRefeicao (YYYY-MM-DD):</label>
+          <input type="text" id="getByData-dataRefeicao" placeholder="Ex.: 2025-12-18" />
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="fetchByDataRefeicao()">Buscar</button>
+          <button class="btn-secondary" onclick="clearInput('getByData-dataRefeicao')">Limpar</button>
+        </div>
+
+        <div id="getByData-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+
+      <!-- POST CREATE -->
+      <div class="operation-card">
+        <h2><span class="http-method post-method">POST</span> Criar</h2>
+        <p>Cria uma nova refeição</p>
+
+        <div class="form-group">
+          <label for="post-idCartaoEstudante">idCartaoEstudante:</label>
+          <input type="text" id="post-idCartaoEstudante" placeholder="Ex.: 112233AA" />
+        </div>
+
+        <div class="form-group">
+          <label for="post-dataRefeicao">dataRefeicao (YYYY-MM-DD):</label>
+          <input type="text" id="post-dataRefeicao" placeholder="Ex.: 2025-12-18" />
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="createRecord()">Criar</button>
+          <button class="btn-secondary" onclick="clearInput('post-idCartaoEstudante', 'post-dataRefeicao')">Limpar</button>
+        </div>
+
+        <div id="post-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+
+      <!-- PUT UPDATE -->
+      <div class="operation-card">
+        <h2><span class="http-method put-method">PUT</span> Atualizar</h2>
+        <p>Atualiza uma refeição existente</p>
+
+        <div class="form-group">
+          <label for="put-oldIdCartaoEstudante">oldIdCartaoEstudante:</label>
+          <input type="text" id="put-oldIdCartaoEstudante" placeholder="Id do cartão atual" />
+        </div>
+
+        <div class="form-group">
+          <label for="put-oldDataRefeicao">oldDataRefeicao (YYYY-MM-DD):</label>
+          <input type="text" id="put-oldDataRefeicao" placeholder="Data atual" />
+        </div>
+
+        <div class="form-group">
+          <label for="put-newIdCartaoEstudante">newIdCartaoEstudante:</label>
+          <input type="text" id="put-newIdCartaoEstudante" placeholder="Novo id do cartão" />
+        </div>
+
+        <div class="form-group">
+          <label for="put-newDataRefeicao">newDataRefeicao (YYYY-MM-DD):</label>
+          <input type="text" id="put-newDataRefeicao" placeholder="Nova data" />
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="updateRecord()">Atualizar</button>
+          <button class="btn-secondary" onclick="clearInput('put-oldIdCartaoEstudante', 'put-oldDataRefeicao', 'put-newIdCartaoEstudante', 'put-newDataRefeicao')">Limpar</button>
+        </div>
+
+        <div id="put-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+
+      <!-- DELETE -->
+      <div class="operation-card">
+        <h2><span class="http-method delete-method">DELETE</span> Deletar</h2>
+        <p>Deleta uma refeição pelo id do cartão e data</p>
+
+        <div class="form-group">
+          <label for="delete-idCartaoEstudante">idCartaoEstudante:</label>
+          <input type="text" id="delete-idCartaoEstudante" placeholder="Ex.: 112233AA" />
+        </div>
+
+        <div class="form-group">
+          <label for="delete-dataRefeicao">dataRefeicao (YYYY-MM-DD):</label>
+          <input type="text" id="delete-dataRefeicao" placeholder="Ex.: 2025-12-18" />
+        </div>
+
+        <div class="button-group">
+          <button class="btn-primary" onclick="deleteRecord()">Deletar</button>
+          <button class="btn-secondary" onclick="clearInput('delete-idCartaoEstudante', 'delete-dataRefeicao')">Limpar</button>
+        </div>
+
+        <div id="delete-response" class="response-display" style="display: none; margin-top: 10px;"></div>
+      </div>
+    </div>
+
+    <!-- Response Summary -->
+    <div class="response-section">
+      <h3>📋 Operation Log</h3>
+      <div id="log-display" class="response-display">
+        <span class="loading">No operations yet. Start by clicking any button above!</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

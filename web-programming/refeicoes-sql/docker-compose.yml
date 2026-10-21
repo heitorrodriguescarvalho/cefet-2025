@@ -1,6 +1,6 @@
 services:
   service-refeicao-mariadb:
-    image: bitnami/mariadb:latest
+    image: soldevelo/mariadb:latest
     container_name: refeicoes-db
     environment:
       - ALLOW_EMPTY_PASSWORD=yes

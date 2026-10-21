@@ -1,6 +1,6 @@
 services:
   service-clube-esquina-mariadb:
-    image: bitnami/mariadb:latest
+    image: soldevelo/mariadb:latest
     container_name: clube-esquina-db
     environment:
       - ALLOW_EMPTY_PASSWORD=yes

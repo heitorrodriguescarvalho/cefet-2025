@@ -1,6 +1,6 @@
 services:
   service-mariadb:
-    image: bitnami/mariadb:latest
+    image: soldevelo/mariadb:latest
     container_name: mariadb
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
